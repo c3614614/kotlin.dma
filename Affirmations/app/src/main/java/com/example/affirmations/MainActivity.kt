@@ -24,7 +24,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.platform.LocalContext
-
+import com.example.affirmations.data.Datasource
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +44,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainPage(modifier: Modifier = Modifier) {
-
+fun MainPage() {
+    affirmationList(
+        affirmationList = Datasource().loadAffirmations(),
+    )
 }
 @Composable
 fun affirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
@@ -81,19 +83,13 @@ fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier) {
 
     }
 }
+
 @Preview
 @Composable
-private fun AffirmationCardPreview() {
-    AffirmationCard(Affirmation(R.string.affirmation1, R.drawable.image1))
-
-}
-
-@Preview(showBackground = true,
-    showSystemUi = true,
-    name = "My Preview")
-@Composable
-fun AffirmationsPreview() {
+private fun AffirmationListPreview() {
     AffirmationsTheme {
-        MainPage()
+        affirmationList(
+            affirmationList = Datasource().loadAffirmations(),
+        )
     }
 }
