@@ -40,6 +40,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.compose.composable
 import com.example.cupcake.ui.StartOrderScreen
 import com.example.cupcake.data.DataSource
+import androidx.compose.ui.platform.LocalContext
+import com.example.cupcake.ui.SelectOptionScreen
+import androidx.compose.foundation.layout.fillMaxHeight
+import com.example.cupcake.data.DataSource.flavors
 
 
 /**
@@ -109,5 +113,13 @@ fun CupcakeApp(
                             .padding(dimensionResource(R.dimen.padding_medium))
                     )
                 }
+                composable(route = CupcakeScreen.Flavor.name) {
+                    val context = LocalContext.current
+                    SelectOptionScreen(
+                        subtotal = uiState.price,
+                        options = DataSource.flavors.map { id -> context.resources.getString(id) },
+                        onSelectionChanged = { viewModel.setFlavor(it) },
+                        modifier = Modifier.fillMaxHeight()
+                    )
+                }
 
-            }
