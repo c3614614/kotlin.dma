@@ -45,6 +45,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.platform.LocalContext
 import com.example.cupcake.data.DataSource.flavors
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.ui.platform.LocalContext
+
 
 /**
  * Composable that displays the topBar and displays back button if back navigation is possible.
