@@ -159,3 +159,10 @@ fun DogItem(
         }
     }
 
+@Preview
+@Composable
+fun WoofDarkThemePreview() {
+    WoofTheme(darkTheme = true) {
+        WoofApp()
+    }
+}
