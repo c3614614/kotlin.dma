@@ -51,12 +51,28 @@ fun MainPage(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f)
             )
         }
-
-
-
-
+        Row(Modifier.weight(1f)) {
+            ComposableInfoCard(
+                title = stringResource(R.string.third_title),
+                description = stringResource(R.string.third_description),
+                backgroundColor = Color(0xFFB69DF8),
+                modifier = Modifier.weight(1f)
+            )
+            ComposableInfoCard(
+                title = stringResource(R.string.fourth_title),
+                description = stringResource(R.string.fourth_description),
+                backgroundColor = Color(0xFFF6EDFF),
+                modifier = Modifier.weight(1f)
+            )
+        }
     }
 }
+
+
+
+
+
+
 
 
 
