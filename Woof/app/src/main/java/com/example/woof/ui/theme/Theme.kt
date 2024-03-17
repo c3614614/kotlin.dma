@@ -80,6 +80,7 @@ private val DarkColors = darkColorScheme(
     surfaceTint = md_theme_dark_surfaceTint,
     outlineVariant = md_theme_dark_outlineVariant,
     scrim = md_theme_dark_scrim,
+
 )
 
 @Composable
@@ -112,6 +113,7 @@ fun WoofTheme(
         content = content
     )
 }
+
 
 /**
  * Sets up edge-to-edge for the window of this [view]. The system icon colors are set to either

@@ -47,7 +47,7 @@ import com.example.woof.data.dogs
 import com.example.woof.ui.theme.WoofTheme
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-
+import androidx.compose.material3.Typography
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,14 +147,15 @@ fun DogItem(
         Column(modifier = modifier) {
             Text(
                 text = stringResource(dogName),
-                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+                style = MaterialTheme.typography.displayMedium,
+                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
             )
             Text(
                 text = stringResource(R.string.years_old, dogAge),
+                style = MaterialTheme.typography.bodyLarge
             )
         }
     }
-
     /**
      * Composable that displays what the UI of the app looks like in light theme in the design tab.
      */
