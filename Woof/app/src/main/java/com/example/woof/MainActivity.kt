@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,9 +65,14 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun WoofApp() {
-    LazyColumn {
-        items(dogs) {
-            DogItem(dog = it)
+    Scaffold { it ->
+        LazyColumn(contentPadding = it) {
+            items(dogs) {
+                DogItem(
+                    dog = it,
+                    modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
         }
     }
 }
@@ -92,62 +98,64 @@ fun DogItem(
             DogInformation(dog.name, dog.age)
         }
     }
-
-/**
- * Composable that displays a photo of a dog.
- *
- * @param dogIcon is the resource ID for the image of the dog
- * @param modifier modifiers to set to this composable
- */
-@Composable
-fun DogIcon(
-    @DrawableRes dogIcon: Int,
-    modifier: Modifier = Modifier
-) {
-    Image(
-        modifier = modifier
-            .size(dimensionResource(R.dimen.image_size))
-            .padding(dimensionResource(R.dimen.padding_small)),
-        painter = painterResource(dogIcon),
-
-        // Content Description is not needed here - image is decorative, and setting a null content
-        // description allows accessibility services to skip this element during navigation.
-
-        contentDescription = null
-    )
 }
 
-/**
- * Composable that displays a dog's name and age.
- *
- * @param dogName is the resource ID for the string of the dog's name
- * @param dogAge is the Int that represents the dog's age
- * @param modifier modifiers to set to this composable
- */
-@Composable
-fun DogInformation(
-    @StringRes dogName: Int,
-    dogAge: Int,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = stringResource(dogName),
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
-        )
-        Text(
-            text = stringResource(R.string.years_old, dogAge),
+    /**
+     * Composable that displays a photo of a dog.
+     *
+     * @param dogIcon is the resource ID for the image of the dog
+     * @param modifier modifiers to set to this composable
+     */
+    @Composable
+    fun DogIcon(
+        @DrawableRes dogIcon: Int,
+        modifier: Modifier = Modifier
+    ) {
+        Image(
+            modifier = modifier
+                .size(dimensionResource(R.dimen.image_size))
+                .padding(dimensionResource(R.dimen.padding_small)),
+            painter = painterResource(dogIcon),
+
+            // Content Description is not needed here - image is decorative, and setting a null content
+            // description allows accessibility services to skip this element during navigation.
+
+            contentDescription = null
         )
     }
-}
 
-/**
- * Composable that displays what the UI of the app looks like in light theme in the design tab.
- */
-@Preview
-@Composable
-fun WoofPreview() {
-    WoofTheme(darkTheme = false) {
-        WoofApp()
+    /**
+     * Composable that displays a dog's name and age.
+     *
+     * @param dogName is the resource ID for the string of the dog's name
+     * @param dogAge is the Int that represents the dog's age
+     * @param modifier modifiers to set to this composable
+     */
+    @Composable
+    fun DogInformation(
+        @StringRes dogName: Int,
+        dogAge: Int,
+        modifier: Modifier = Modifier
+    ) {
+        Column(modifier = modifier) {
+            Text(
+                text = stringResource(dogName),
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+            )
+            Text(
+                text = stringResource(R.string.years_old, dogAge),
+            )
+        }
     }
-}
+
+    /**
+     * Composable that displays what the UI of the app looks like in light theme in the design tab.
+     */
+    @Preview
+    @Composable
+    fun WoofPreview() {
+        WoofTheme(darkTheme = false) {
+            WoofApp()
+        }
+    }
+
