@@ -70,6 +70,16 @@ fun MainPage(modifier: Modifier = Modifier) {
 
 
 
+@Composable
+private fun ComposableInfoCard(
+    title: String,
+    description: String,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
+)
+{
+
+}
 
 
 
