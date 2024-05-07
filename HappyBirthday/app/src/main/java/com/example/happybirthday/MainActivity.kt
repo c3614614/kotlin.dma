@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.example.happybirthday.ui.theme.HappyBirthdayTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 
@@ -58,36 +60,39 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = message,
-            fontSize = 100.sp,
+            fontSize = 80.sp,
             lineHeight = 116.sp,
             textAlign = TextAlign.Center
         )
         Text(
             text = from,
-            fontSize = 36.sp,
+            fontSize = 20.sp,
             modifier = Modifier
                 .padding(16.dp)
-                .align(alignment = Alignment.End)
+                .align(alignment = Alignment.CenterHorizontally)
         )
     }
 }
 
 @Composable
 fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
-    // Create a box to overlap image and texts
-    Box(modifier) {
-        Image(
-            painter = painterResource(id = R.drawable.androidparty),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            alpha = 0.5F
-        )
+    Box(modifier = modifier.fillMaxSize()) {
+        Column {
+            Image(
+                painter = painterResource(id = R.drawable.androidparty),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                alpha = 0.5F,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.weight(1f))
+        }
         GreetingText(
             message = message,
             from = from,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 16.dp)
         )
     }
 }

@@ -28,10 +28,10 @@ val dancingScript_regular = FontFamily(
 )
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = dancingScript_regular, // Use the new font family here
-        fontWeight = FontWeight.Normal,
+        fontFamily = dancingScript_regular,
+        fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
-        lineHeight = 24.sp,
+        lineHeight = 28.sp,
         letterSpacing = 0.5.sp
     )/* Other default text styles to override
     titleLarge = TextStyle(
