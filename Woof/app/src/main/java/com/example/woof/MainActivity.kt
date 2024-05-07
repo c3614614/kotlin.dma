@@ -44,16 +44,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.woof.data.Dog
 import com.example.woof.data.dogs
-import com.example.woof.ui.theme.WoofTheme
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.material3.Typography
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Alignment
-
-
-
+import com.example.compose.WoofTheme
 
 
 class MainActivity : ComponentActivity() {
