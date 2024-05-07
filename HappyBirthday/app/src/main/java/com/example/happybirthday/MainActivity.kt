@@ -25,6 +25,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 
@@ -61,12 +62,14 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
         Text(
             text = message,
             fontSize = 80.sp,
-            lineHeight = 116.sp,
-            textAlign = TextAlign.Center
+            lineHeight = 110.sp,
+            textAlign = TextAlign.Center,
+            color = Color.Black
         )
         Text(
             text = from,
-            fontSize = 20.sp,
+            fontSize = 24.sp,
+            color = Color.Black,
             modifier = Modifier
                 .padding(16.dp)
                 .align(alignment = Alignment.CenterHorizontally)
@@ -77,16 +80,13 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
-        Column {
-            Image(
-                painter = painterResource(id = R.drawable.androidparty),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                alpha = 0.5F,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.weight(1f))
-        }
+        Image(
+            painter = painterResource(id = R.drawable.androidparty),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alpha = 0.5F,
+            modifier = Modifier.fillMaxSize()
+        )
         GreetingText(
             message = message,
             from = from,
