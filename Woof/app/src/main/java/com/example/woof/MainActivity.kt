@@ -48,7 +48,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Alignment
-import com.example.compose.WoofTheme
+import com.example.woof.ui.compose.WoofTheme
 
 
 class MainActivity : ComponentActivity() {

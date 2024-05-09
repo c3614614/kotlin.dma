@@ -1,4 +1,4 @@
-package com.example.compose
+package com.example.woof.ui.compose
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -83,6 +83,17 @@ private val darkScheme = darkColorScheme(
 
 
 
+@Immutable
+data class ColorFamily(
+    val color: Color,
+    val onColor: Color,
+    val colorContainer: Color,
+    val onColorContainer: Color
+)
+
+val unspecified_scheme = ColorFamily(
+    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
+)
 
 @Composable
 fun WoofTheme(
@@ -97,8 +108,12 @@ fun WoofTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkScheme
-        else -> lightScheme
+        darkTheme -> darkScheme.copy(
+            primary = primaryDark,
+        )
+        else -> lightScheme.copy(
+            primary = primaryLight,
+        )
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
