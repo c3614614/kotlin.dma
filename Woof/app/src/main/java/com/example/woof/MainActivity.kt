@@ -51,6 +51,9 @@ import androidx.compose.ui.Alignment
 import com.example.woof.ui.compose.WoofTheme
 
 
+
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +67,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
     }
 }
 
@@ -72,6 +76,7 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun WoofApp() {
+
     Scaffold(
         topBar = {
             WoofTopAppBar()
@@ -99,17 +104,19 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.padding_small))
-        ) {
-            DogIcon(dog.imageResourceId)
-            DogInformation(dog.name, dog.age)
+
+        Card(modifier = modifier) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+            ) {
+                DogIcon(dog.imageResourceId)
+                DogInformation(dog.name, dog.age)
+            }
         }
     }
-}
+
 
     /**
      * Composable that displays a photo of a dog.
