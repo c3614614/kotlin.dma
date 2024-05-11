@@ -1,7 +1,6 @@
 package com.example.affirmations
 
-//import Datasource
-import android.content.Context
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -132,10 +131,7 @@ fun affirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Mod
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-//                Text(
-//                    text = context.getString(affirmation.stringResourceId),
-//                    style = MaterialTheme.typography.headlineSmall
-//                )
+
     }
 }
 
