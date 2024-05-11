@@ -84,6 +84,59 @@ fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier) {
     }
 }
 
+
+@Composable
+fun AffirmationDialog(
+    affirmation: Affirmation?,
+    onDismissRequest: () -> Unit
+) {
+    val context = LocalContext.current
+
+    affirmation?.let {
+        Dialog(
+            onDismissRequest = onDismissRequest,
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            )
+        )
+        {
+
+            Surface(
+                color = Color.White,
+                modifier = Modifier.padding(top = 16.dp),
+                shape = RoundedCornerShape(16.dp),
+            )
+            {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(affirmation.imageResourceId),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(194.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                    Text(
+                        text = context.getString(affirmation.stringResourceId),
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .background(
+                                Color.White,
+                                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                            )
+                    )
+                }
+            }
+        }
+    }
+}
+
+
 @Preview
 @Composable
 private fun AffirmationListPreview() {
