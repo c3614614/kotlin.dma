@@ -47,6 +47,8 @@ import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.example.cupcake.ui.SelectToppingScreen
+//import com.example.cupcake.data.toppingOptions
 
 /**
  * Composable that displays the topBar and displays back button if back navigation is possible.
@@ -55,6 +57,7 @@ import androidx.compose.runtime.getValue
 enum class CupcakeScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
     Flavor(title = R.string.choose_flavor),
+    Topping(title = R.string.choose_topping),
     Pickup(title = R.string.choose_pickup_date),
     Summary(title = R.string.order_summary)
 }
@@ -122,11 +125,16 @@ fun CupcakeApp(
                         .padding(dimensionResource(R.dimen.padding_medium))
                 )
             }
+
+
+
+
             composable(route = CupcakeScreen.Flavor.name) {
                 val context = LocalContext.current
                 SelectOptionScreen(
                     subtotal = uiState.price,
-                    onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
+
+                    onNextButtonClicked = { navController.navigate(CupcakeScreen.Topping.name) },
                     onCancelButtonClicked = {
                         cancelOrderAndNavigateToStart(viewModel, navController)
                     },
@@ -135,6 +143,30 @@ fun CupcakeApp(
                     modifier = Modifier.fillMaxHeight()
                 )
             }
+
+
+            //newnavController.navigate(CupcakeScreen.Flavor.name)
+
+
+            composable(route = CupcakeScreen.Topping.name) {
+                SelectToppingScreen(
+                    subtotal = uiState.price,
+                    navController = navController,
+                    onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
+                    onCancelButtonClicked = {
+                        cancelOrderAndNavigateToStart(viewModel, navController)
+                    },
+                    toppingOptions = DataSource.toppingOptions.map { id ->
+                        stringResource(id)
+                    },
+                    onToppingSelectionChanged = { viewModel.setTopping(it) },
+                    modifier = Modifier.fillMaxHeight()
+                )
+            }
+
+//new
+
+
             composable(route = CupcakeScreen.Pickup.name) {
                 SelectOptionScreen(
                     subtotal = uiState.price,

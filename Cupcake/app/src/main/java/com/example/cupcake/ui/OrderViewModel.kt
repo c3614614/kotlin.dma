@@ -15,6 +15,9 @@
  */
 package com.example.cupcake.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.cupcake.data.OrderUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,6 +69,14 @@ class OrderViewModel : ViewModel() {
         }
     }
 
+    //new
+    private var _selectedTopping by mutableStateOf<String?>(null)
+    val selectedTopping: String? by mutableStateOf(_selectedTopping)
+
+    fun setTopping(topping: String) {
+        _selectedTopping = topping
+    }
+    //new
     /**
      * Set the [pickupDate] for this order's state and update the price
      */
