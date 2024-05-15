@@ -15,9 +15,6 @@
  */
 package com.example.cupcake.ui
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.cupcake.data.OrderUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,6 +31,11 @@ private const val PRICE_PER_CUPCAKE = 2.00
 
 /** Additional cost for same day pickup of an order */
 private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
+
+/** Additional cost for adding topping order */
+private const val POWDERED_SUGAR_AND_CHERRY_PRICE = 0.30
+
+private const val SPRINKLES_PRICE = 0.50
 
 /**
  * [OrderViewModel] holds information about a cupcake order in terms of quantity, flavor, and
@@ -70,11 +72,10 @@ class OrderViewModel : ViewModel() {
     }
 
     //new
-    private var _selectedTopping by mutableStateOf<String?>(null)
-    val selectedTopping: String? by mutableStateOf(_selectedTopping)
-
-    fun setTopping(topping: String) {
-        _selectedTopping = topping
+    fun setTopping(desiredTopping: String) {
+        _uiState.update { currentState ->
+            currentState.copy(topping = desiredTopping)
+        }
     }
     //new
     /**
@@ -100,6 +101,7 @@ class OrderViewModel : ViewModel() {
      * Returns the calculated price based on the order details.
      */
     private fun calculatePrice(
+        topping: String? = _uiState.value.topping,
         quantity: Int = _uiState.value.quantity,
         pickupDate: String = _uiState.value.date
     ): String {
@@ -107,6 +109,11 @@ class OrderViewModel : ViewModel() {
         // If the user selected the first option (today) for pickup, add the surcharge
         if (pickupOptions()[0] == pickupDate) {
             calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
+        }
+        calculatedPrice += when (topping) {
+            "Cherry - $0.30 per Cupcake", "Powdered Sugar - $0.30 per Cupcake" -> POWDERED_SUGAR_AND_CHERRY_PRICE
+            "Sprinkles - $0.50 per Cupcake" -> SPRINKLES_PRICE
+            else -> 0.0
         }
         val formattedPrice = NumberFormat.getCurrencyInstance().format(calculatedPrice)
         return formattedPrice
@@ -126,4 +133,6 @@ class OrderViewModel : ViewModel() {
         }
         return dateOptions
     }
+
+
 }
