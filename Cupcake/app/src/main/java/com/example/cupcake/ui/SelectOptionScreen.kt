@@ -62,7 +62,7 @@ fun SelectOptionScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))){
-            options.forEach { item ->
+        options.forEach { item ->
                 Row(
                     modifier = Modifier.selectable(
                         selected = selectedValue == item,
