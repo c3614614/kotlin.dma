@@ -32,11 +32,9 @@ private const val PRICE_PER_CUPCAKE = 2.00
 /** Additional cost for same day pickup of an order */
 private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
 
-/** Additional cost for adding topping order */
 private const val POWDERED_SUGAR_AND_CHERRY_PRICE = 0.30
 
 private const val SPRINKLES_PRICE = 0.50
-
 /**
  * [OrderViewModel] holds information about a cupcake order in terms of quantity, flavor, and
  * pickup date. It also knows how to calculate the total price based on these order details.
@@ -70,14 +68,14 @@ class OrderViewModel : ViewModel() {
             currentState.copy(flavor = desiredFlavor)
         }
     }
-
-    //new
     fun setTopping(desiredTopping: String) {
         _uiState.update { currentState ->
-            currentState.copy(topping = desiredTopping)
+            currentState.copy(
+                topping = desiredTopping,
+                price = calculatePrice(topping = desiredTopping)
+            )
         }
     }
-    //new
     /**
      * Set the [pickupDate] for this order's state and update the price
      */
@@ -100,24 +98,32 @@ class OrderViewModel : ViewModel() {
     /**
      * Returns the calculated price based on the order details.
      */
+
     private fun calculatePrice(
         topping: String? = _uiState.value.topping,
         quantity: Int = _uiState.value.quantity,
         pickupDate: String = _uiState.value.date
     ): String {
-        var calculatedPrice = quantity * PRICE_PER_CUPCAKE
+        var calculatedPrice = (quantity * PRICE_PER_CUPCAKE).toDouble()
         // If the user selected the first option (today) for pickup, add the surcharge
         if (pickupOptions()[0] == pickupDate) {
             calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
         }
-        calculatedPrice += when (topping) {
-            "Cherry - $0.30 per Cupcake", "Powdered Sugar - $0.30 per Cupcake" -> POWDERED_SUGAR_AND_CHERRY_PRICE
-            "Sprinkles - $0.50 per Cupcake" -> SPRINKLES_PRICE
-            else -> 0.0
+        // Add the topping price based on the selected topping and quantity
+        when (topping) {
+            "Cherry - $0.30 per Cupcake", "Powdered Sugar - $0.30 per Cupcake" -> {
+                calculatedPrice += (quantity * POWDERED_SUGAR_AND_CHERRY_PRICE)
+            }
+            "Sprinkles - $0.50 per Cupcake" -> {
+                calculatedPrice += (quantity * SPRINKLES_PRICE)
+            }
+            // If no topping is selected, do nothing
+            else -> {}
         }
         val formattedPrice = NumberFormat.getCurrencyInstance().format(calculatedPrice)
         return formattedPrice
     }
+
 
     /**
      * Returns a list of date options starting with the current date and the following 3 dates.
@@ -133,6 +139,4 @@ class OrderViewModel : ViewModel() {
         }
         return dateOptions
     }
-
-
 }

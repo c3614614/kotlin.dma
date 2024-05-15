@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 package com.example.cupcake.ui
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+
+
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,7 +63,7 @@ fun SelectOptionScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))){
-        options.forEach { item ->
+            options.forEach { item ->
                 Row(
                     modifier = Modifier.selectable(
                         selected = selectedValue == item,
@@ -115,7 +116,7 @@ fun SelectOptionScreen(
                 modifier = Modifier.weight(1f),
                 // the button is enabled when the user makes a selection
                 enabled = selectedValue.isNotEmpty(),
-                onClick = onNextButtonClicked // Replace empty lambda with onNextButtonClicked
+                onClick = onNextButtonClicked
             ) {
                 Text(stringResource(R.string.next))
             }
@@ -123,7 +124,6 @@ fun SelectOptionScreen(
     }
 
 }
-
 
 @Preview
 @Composable

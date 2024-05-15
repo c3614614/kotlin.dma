@@ -33,25 +33,18 @@
     <string name="send">Send Order to Another App</string>
     <string name="quantity">Quantity</string>
     <string name="flavor">Flavor</string>
-    //new
-    <string name="choose_topping">Choose Topping</string>
-    <string name="select_toppings">Select Toppings</string>
-
-    <string name="topping">Topping</string>
-    <string name="sprinkles">Sprinkles</string>
-    <string name="cherry">Cherry</string>
-    <string name="chocolate_chips">Chocolate Chips</string>
-    <string name="powdered_sugar">Powdered Sugar</string>
-    //new
-
-
-
     <string name="pickup_date">Pickup date</string>
     <string name="subtotal_price">Subtotal %s</string>
     <string name="total_price">Total %s</string>
     <string name="new_cupcake_order">New Cupcake Order</string>
     <string name="order_details">Quantity: %1$s \nFlavor: %2$s \nPickup date: %3$s \nTotal: %4$s \n\nThank you!</string>
     <string name="back_button">Back</string>
+    <string name="topping">Topping</string>
+    <string name="choose_topping">Choose Topping</string>
+    <string name="plain">Plain</string>
+    <string name="cherry">Cherry - $0.30 per Cupcake</string>
+    <string name="powdered_sugar">Powdered Sugar - $0.30 per Cupcake</string>
+    <string name="sprinkles">Sprinkles - $0.50 per Cupcake</string>
     <plurals name="cupcakes">
         <item quantity="one">%d cupcake</item>
         <item quantity="other">%d cupcakes</item>

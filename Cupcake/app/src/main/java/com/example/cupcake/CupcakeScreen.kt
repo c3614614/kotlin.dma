@@ -53,16 +53,17 @@ import com.example.cupcake.ui.SelectOptionScreen
 import com.example.cupcake.ui.StartOrderScreen
 
 /**
- * Composable that displays the topBar and displays back button if back navigation is possible.
+ * enum values that represent the screens in the app
  */
-
 enum class CupcakeScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
     Flavor(title = R.string.choose_flavor),
     Topping(title = R.string.choose_topping),
     Pickup(title = R.string.choose_pickup_date),
     Summary(title = R.string.order_summary)
+
 }
+
 
 @Composable
 fun CupcakeAppBar(
@@ -94,10 +95,10 @@ fun CupcakeAppBar(
 fun CupcakeApp(
     viewModel: OrderViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
-){
-
+) {
+    // Get current back stack entry
     val backStackEntry by navController.currentBackStackEntryAsState()
-
+    // Get the name of the current screen
     val currentScreen = CupcakeScreen.valueOf(
         backStackEntry?.destination?.route ?: CupcakeScreen.Start.name
     )
@@ -117,10 +118,9 @@ fun CupcakeApp(
             navController = navController,
             startDestination = CupcakeScreen.Start.name,
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-
+                .padding(innerPadding)
         ) {
             composable(route = CupcakeScreen.Start.name) {
                 StartOrderScreen(
@@ -134,9 +134,6 @@ fun CupcakeApp(
                         .padding(dimensionResource(R.dimen.padding_medium))
                 )
             }
-
-
-
             composable(route = CupcakeScreen.Flavor.name) {
                 val context = LocalContext.current
                 SelectOptionScreen(
@@ -148,11 +145,6 @@ fun CupcakeApp(
                     modifier=Modifier.fillMaxHeight()
 
                 )}
-
-
-
-            //navController.navigate(CupcakeScreen.Flavor.name)
-
 
             composable(route = CupcakeScreen.Topping.name) {
                 val context = LocalContext.current
@@ -167,10 +159,6 @@ fun CupcakeApp(
                 )}
 
 
-//new
-
-
-
             composable(route = CupcakeScreen.Pickup.name) {
                 SelectOptionScreen(
                     subtotal = uiState.price,
@@ -181,7 +169,6 @@ fun CupcakeApp(
                     modifier = Modifier.fillMaxHeight()
                 )
             }
-
             composable(route = CupcakeScreen.Summary.name) {
                 val context = LocalContext.current
                 OrderSummaryScreen(
@@ -200,10 +187,6 @@ fun CupcakeApp(
 }
 
 
-
-
-
-
 private fun cancelOrderAndNavigateToStart(
     viewModel: OrderViewModel,
     navController: NavHostController
@@ -212,7 +195,9 @@ private fun cancelOrderAndNavigateToStart(
     navController.popBackStack(CupcakeScreen.Start.name, inclusive = false)
 }
 
+
 private fun shareOrder(context: Context, subject: String, summary: String) {
+    // Create an ACTION_SEND implicit intent with order details in the intent extras
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_SUBJECT, subject)
@@ -224,5 +209,4 @@ private fun shareOrder(context: Context, subject: String, summary: String) {
             context.getString(R.string.new_cupcake_order)
         )
     )
-
 }

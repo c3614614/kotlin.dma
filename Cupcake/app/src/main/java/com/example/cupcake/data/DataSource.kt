@@ -31,11 +31,12 @@ object DataSource {
         Pair(R.string.six_cupcakes, 6),
         Pair(R.string.twelve_cupcakes, 12)
     )
+
     val topping = listOf(
-        R.string.sprinkles,
+        R.string.plain,
         R.string.cherry,
-        R.string.chocolate_chips,
-        R.string.powdered_sugar
+        R.string.powdered_sugar,
+        R.string.sprinkles
     )
 
 }
