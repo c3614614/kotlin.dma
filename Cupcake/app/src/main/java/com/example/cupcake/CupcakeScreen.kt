@@ -170,18 +170,6 @@ fun CupcakeApp(
 //new
 
 
-//            composable(route = CupcakeScreen.Pickup.name) {
-//                SelectOptionScreen(
-//                    subtotal = uiState.price,
-//                    onNextButtonClicked = { navController.navigate(CupcakeScreen.Summary.name) },
-//                    onCancelButtonClicked = {
-//                        cancelOrderAndNavigateToStart(viewModel, navController)
-//                    },
-//                    options = uiState.pickupOptions,
-//                    onSelectionChanged = { viewModel.setDate(it) },
-//                    modifier = Modifier.fillMaxHeight()
-//                )
-//            }
 
             composable(route = CupcakeScreen.Pickup.name) {
                 SelectOptionScreen(
