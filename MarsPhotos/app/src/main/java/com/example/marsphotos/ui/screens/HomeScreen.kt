@@ -34,7 +34,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+
 @Composable
 fun HomeScreen(
     retryAction: () -> Unit,
@@ -77,19 +81,35 @@ fun ErrorScreen(retryAction: () -> Unit,modifier: Modifier = Modifier) {
     }
 
 
+    @Composable
+    fun MarsPhotoCard(photo: Any, modifier: Modifier) {
 
-/**
- * ResultScreen displaying number of photos retrieved.
- */
-@Composable
-fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-    ) {
-        Text(text = photos)
     }
-}
+
+
+    @Composable
+    fun PhotosGridScreen(
+        photos: List<MarsPhoto>,
+        modifier: Modifier = Modifier,
+        contentPadding: PaddingValues = PaddingValues(0.dp),
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(150.dp),
+            modifier = modifier.padding(horizontal = 4.dp),
+            contentPadding = contentPadding,
+        ) {
+            items(items = photos, key = { photo -> photo.id }) { photo ->
+                MarsPhotoCard(
+                    photo,
+                    modifier = modifier
+                        .padding(4.dp)
+                        .fillMaxWidth()
+                        .aspectRatio(1.5f)
+                )
+            }
+        }
+    }
+
 
 @Preview(showBackground = true)
 @Composable
