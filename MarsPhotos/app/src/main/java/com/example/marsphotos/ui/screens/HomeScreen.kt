@@ -132,10 +132,11 @@ fun ErrorScreen(retryAction: () -> Unit,modifier: Modifier = Modifier) {
     }
 
 
-@Preview(showBackground = true)
-@Composable
-fun ResultScreenPreview() {
-    MarsPhotosTheme {
-        ResultScreen(stringResource(R.string.placeholder_result))
+    @Preview(showBackground = true)
+    @Composable
+    fun LoadingScreenPreview() {
+        MarsPhotosTheme {
+            LoadingScreen()
+        }
     }
 }
