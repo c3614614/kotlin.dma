@@ -147,3 +147,14 @@ fun ErrorScreenPreview() {
         ErrorScreen({})
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PhotosGridScreenPreview() {
+    MarsPhotosTheme {
+        val mockData = List(10) { MarsPhoto("$it", "") }
+        PhotosGridScreen(mockData)
+    }
+}
+
+
