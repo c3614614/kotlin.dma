@@ -15,6 +15,7 @@
  */
 package com.example.marsphotos.ui.screens
 
+import android.widget.Button
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -60,7 +61,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
+fun ErrorScreen(retryAction: () -> Unit,modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -70,8 +71,12 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.ic_connection_error), contentDescription = ""
         )
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
+        Button(onClick = retryAction) {
+            Text(stringResource(R.string.retry))
+        }
     }
-}
+
+
 
 /**
  * ResultScreen displaying number of photos retrieved.
