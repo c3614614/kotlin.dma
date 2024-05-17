@@ -16,8 +16,8 @@
 
 package com.example.marsphotos.network
 
-//import com.example.marsphotos.model.MarsPhoto
-import model.MarsPhoto
+//import com.example.marsphotos.com.example.marsphotos.model.MarsPhoto
+import com.example.marsphotos.model.MarsPhoto
 import retrofit2.http.GET
 
 /**

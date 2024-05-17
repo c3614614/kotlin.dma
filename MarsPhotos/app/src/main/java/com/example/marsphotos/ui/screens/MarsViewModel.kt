@@ -15,6 +15,9 @@
  */
 package com.example.marsphotos.ui.screens
 
+import android.net.http.HttpException
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -27,23 +30,22 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.marsphotos.MarsPhotosApplication
 import com.example.marsphotos.data.MarsPhotosRepository
 
+import com.example.marsphotos.model.MarsPhoto
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import java.io.IOException
 
-/**
- * UI state for the Home screen
- */
 sealed interface MarsUiState {
-    data class Success<MarsPhoto>(val photos: List<MarsPhoto>) : MarsUiState
+    data class Success(val photos: List<MarsPhoto>) : MarsUiState //changed to list the photos and not display strings
     object Error : MarsUiState
     object Loading : MarsUiState
 }
 
-class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : ViewModel() {
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository):ViewModel() {  //changed
     /** The mutable State that stores the status of the most recent request */
     var marsUiState: MarsUiState by mutableStateOf(MarsUiState.Loading)
         private set
+
 
     /**
      * Call getMarsPhotos() on init so we can display status immediately.
@@ -56,9 +58,10 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
      * Gets Mars photos information from the Mars API Retrofit service and updates the
      * [MarsPhoto] [List] [MutableList].
      */
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     fun getMarsPhotos() {
         viewModelScope.launch {
-            marsUiState = MarsUiState.Loading
+            marsUiState = MarsUiState.Loading  //changed
             marsUiState = try {
                 MarsUiState.Success(marsPhotosRepository.getMarsPhotos())
             } catch (e: IOException) {
@@ -68,11 +71,7 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
             }
         }
     }
-
-    /**
-     * Factory for [MarsViewModel] that takes [MarsPhotosRepository] as a dependency
-     */
-    companion object {
+    companion object { //added
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as MarsPhotosApplication)
@@ -81,4 +80,5 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
             }
         }
     }
+
 }
