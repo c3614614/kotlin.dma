@@ -38,6 +38,13 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import model.MarsPhoto
 
 @Composable
 fun HomeScreen(
@@ -82,8 +89,22 @@ fun ErrorScreen(retryAction: () -> Unit,modifier: Modifier = Modifier) {
 
 
     @Composable
-    fun MarsPhotoCard(photo: Any, modifier: Modifier) {
-
+    fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
+        Card(
+            modifier = modifier,
+            shape = MaterialTheme.shapes.medium,
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        ) {
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current).data(photo.imgSrc)
+                    .crossfade(true).build(),
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = stringResource(R.string.mars_photo),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 
 
