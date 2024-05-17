@@ -140,3 +140,10 @@ fun ErrorScreen(retryAction: () -> Unit,modifier: Modifier = Modifier) {
         }
     }
 }
+@Preview(showBackground = true)
+@Composable
+fun ErrorScreenPreview() {
+    MarsPhotosTheme {
+        ErrorScreen({})
+    }
+}
