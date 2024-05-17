@@ -19,7 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.marsphotos.MarsPhotosApplication
 import com.example.marsphotos.data.MarsPhotosRepository
 import kotlinx.coroutines.launch
 import com.example.marsphotos.network.MarsApi
@@ -58,5 +63,15 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
             }
         }
     }
-
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[APPLICATION_KEY] as MarsPhotosApplication)
+                val marsPhotosRepository = application.container.marsPhotosRepository
+                MarsViewModel(marsPhotosRepository = marsPhotosRepository)
+            }
+        }
+    }
 }
+
+
