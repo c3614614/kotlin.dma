@@ -26,16 +26,19 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.marsphotos.MarsPhotosApplication
 import com.example.marsphotos.data.MarsPhotosRepository
+
 import kotlinx.coroutines.launch
-import com.example.marsphotos.network.MarsApi
+import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * UI state for the Home screen
+ */
 sealed interface MarsUiState {
-    data class Success(val photos: String) : MarsUiState
+    data class Success<MarsPhoto>(val photos: List<MarsPhoto>) : MarsUiState
     object Error : MarsUiState
     object Loading : MarsUiState
 }
-
 
 class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : ViewModel() {
     /** The mutable State that stores the status of the most recent request */
@@ -53,16 +56,22 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
      * Gets Mars photos information from the Mars API Retrofit service and updates the
      * [MarsPhoto] [List] [MutableList].
      */
-    private fun getMarsPhotos() {
+    fun getMarsPhotos() {
         viewModelScope.launch {
+            marsUiState = MarsUiState.Loading
             marsUiState = try {
-                val listResult = MarsApi.retrofitService.getPhotos()
-                MarsUiState.Success("Success: ${listResult.size} Mars photos retrieved")
+                MarsUiState.Success(marsPhotosRepository.getMarsPhotos())
             } catch (e: IOException) {
+                MarsUiState.Error
+            } catch (e: HttpException) {
                 MarsUiState.Error
             }
         }
     }
+
+    /**
+     * Factory for [MarsViewModel] that takes [MarsPhotosRepository] as a dependency
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
@@ -73,4 +82,3 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
         }
     }
 }
-
